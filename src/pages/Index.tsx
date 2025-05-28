@@ -1,4 +1,3 @@
-
 import { useState, useEffect } from 'react';
 import { GameTimer } from '@/components/GameTimer';
 import { TeamPanel } from '@/components/TeamPanel';
@@ -9,6 +8,7 @@ import { ExportPanel } from '@/components/ExportPanel';
 import { ThemeToggle } from '@/components/ThemeToggle';
 import { PopoutButton } from '@/components/PopoutButton';
 import { useToast } from '@/hooks/use-toast';
+import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from '@/components/ui/carousel';
 
 export interface GameEvent {
   id: string;
@@ -199,43 +199,81 @@ const Index = () => {
           isDarkMode={isDarkMode}
         />
 
-        {/* Main Game Area - Always show teams side by side */}
-        <div className="grid grid-cols-2 lg:grid-cols-3 gap-2 sm:gap-4 lg:gap-6 mb-4 sm:mb-6">
-          {/* Home Team */}
-          <TeamPanel
-            team="home"
-            teamName="Casa"
-            stats={homeStats}
-            onAddEvent={addEvent}
-            isDarkMode={isDarkMode}
-          />
+        {/* Main Game Area - Carousel for mobile, Grid for larger screens */}
+        <div className="mb-4 sm:mb-6">
+          {/* Mobile Carousel */}
+          <div className="block sm:hidden">
+            <Carousel className="w-full">
+              <CarouselContent className="-ml-2 md:-ml-4">
+                <CarouselItem className="pl-2 md:pl-4">
+                  <TeamPanel
+                    team="home"
+                    teamName="Casa"
+                    stats={homeStats}
+                    onAddEvent={addEvent}
+                    isDarkMode={isDarkMode}
+                  />
+                </CarouselItem>
+                <CarouselItem className="pl-2 md:pl-4">
+                  <StatsPanel
+                    homeStats={homeStats}
+                    awayStats={awayStats}
+                    isDarkMode={isDarkMode}
+                  />
+                </CarouselItem>
+                <CarouselItem className="pl-2 md:pl-4">
+                  <TeamPanel
+                    team="away"
+                    teamName="Visitante"
+                    stats={awayStats}
+                    onAddEvent={addEvent}
+                    isDarkMode={isDarkMode}
+                  />
+                </CarouselItem>
+              </CarouselContent>
+              <CarouselPrevious className="left-2" />
+              <CarouselNext className="right-2" />
+            </Carousel>
+          </div>
 
-          {/* Stats Panel - Hidden on small screens, visible on large */}
-          <div className="hidden lg:block">
+          {/* Tablet and Desktop Grid */}
+          <div className="hidden sm:grid sm:grid-cols-2 lg:grid-cols-3 gap-2 sm:gap-4 lg:gap-6">
+            {/* Home Team */}
+            <TeamPanel
+              team="home"
+              teamName="Casa"
+              stats={homeStats}
+              onAddEvent={addEvent}
+              isDarkMode={isDarkMode}
+            />
+
+            {/* Stats Panel - Hidden on tablet, visible on large screens */}
+            <div className="hidden lg:block">
+              <StatsPanel
+                homeStats={homeStats}
+                awayStats={awayStats}
+                isDarkMode={isDarkMode}
+              />
+            </div>
+
+            {/* Away Team */}
+            <TeamPanel
+              team="away"
+              teamName="Visitante"
+              stats={awayStats}
+              onAddEvent={addEvent}
+              isDarkMode={isDarkMode}
+            />
+          </div>
+
+          {/* Stats Panel for tablet only */}
+          <div className="hidden sm:block lg:hidden mt-4 sm:mt-6">
             <StatsPanel
               homeStats={homeStats}
               awayStats={awayStats}
               isDarkMode={isDarkMode}
             />
           </div>
-
-          {/* Away Team */}
-          <TeamPanel
-            team="away"
-            teamName="Visitante"
-            stats={awayStats}
-            onAddEvent={addEvent}
-            isDarkMode={isDarkMode}
-          />
-        </div>
-
-        {/* Stats Panel for small screens */}
-        <div className="lg:hidden mb-4 sm:mb-6">
-          <StatsPanel
-            homeStats={homeStats}
-            awayStats={awayStats}
-            isDarkMode={isDarkMode}
-          />
         </div>
 
         {/* Charts and Alerts */}
