@@ -21,22 +21,22 @@ export const TeamPanel = ({ team, teamName, stats, onAddEvent, isDarkMode }: Tea
   ];
 
   return (
-    <div className={`${isDarkMode ? 'bg-gray-800 border-gray-700' : 'bg-white border-gray-200'} rounded-xl p-3 sm:p-6 border shadow-lg transition-all duration-300`}>
-      <div className="text-center mb-3 sm:mb-6">
-        <h2 className={`text-lg sm:text-2xl font-bold ${isDarkMode ? 'text-white' : 'text-gray-900'} mb-2`}>
+    <div className={`${isDarkMode ? 'bg-gray-800 border-gray-700' : 'bg-white border-gray-200'} rounded-xl p-2 sm:p-4 border shadow-lg transition-all duration-300`}>
+      <div className="text-center mb-2 sm:mb-4">
+        <h2 className={`text-base sm:text-xl font-bold ${isDarkMode ? 'text-white' : 'text-gray-900'} mb-1`}>
           {teamName}
         </h2>
-        <div className={`text-xl sm:text-3xl font-bold ${team === 'home' ? 'text-blue-600' : 'text-red-600'}`}>
+        <div className={`text-lg sm:text-2xl font-bold ${team === 'home' ? 'text-blue-600' : 'text-red-600'}`}>
           xG: {stats.totalXG.toFixed(2)}
         </div>
       </div>
 
-      <div className="grid grid-cols-1 gap-2 mb-4 sm:mb-6">
+      <div className="grid grid-cols-1 gap-1 mb-3 sm:mb-4">
         {eventButtons.map((button) => (
           <Button
             key={button.type}
             onClick={() => onAddEvent(team, button.type)}
-            className={`${button.color} text-white text-xs sm:text-sm py-2 px-2 h-8 sm:h-10 transition-all duration-300 hover:scale-105 active:scale-95`}
+            className={`${button.color} text-white text-xs py-1 px-1 h-6 sm:h-8 transition-all duration-300 hover:scale-105 active:scale-95`}
             size="sm"
           >
             {button.label}
@@ -45,8 +45,8 @@ export const TeamPanel = ({ team, teamName, stats, onAddEvent, isDarkMode }: Tea
       </div>
 
       {/* Quick Stats */}
-      <div className={`${isDarkMode ? 'bg-gray-700' : 'bg-gray-50'} rounded-lg p-3 transition-colors duration-300`}>
-        <div className="grid grid-cols-2 gap-2 text-xs sm:text-sm">
+      <div className={`${isDarkMode ? 'bg-gray-700' : 'bg-gray-50'} rounded-lg p-2 transition-colors duration-300`}>
+        <div className="grid grid-cols-2 gap-1 text-xs">
           <div className={`${isDarkMode ? 'text-gray-300' : 'text-gray-600'}`}>
             <div>Chutes no gol: <span className="font-bold text-green-600">{stats.shotsOnTarget}</span></div>
             <div>Chutes pra fora: <span className="font-bold text-red-600">{stats.shotsOffTarget}</span></div>
