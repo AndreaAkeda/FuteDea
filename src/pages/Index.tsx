@@ -1,3 +1,4 @@
+
 import { useState, useEffect } from 'react';
 import { GameTimer } from '@/components/GameTimer';
 import { TeamPanel } from '@/components/TeamPanel';
@@ -7,6 +8,7 @@ import { TrendAlerts } from '@/components/TrendAlerts';
 import { ExportPanel } from '@/components/ExportPanel';
 import { ThemeToggle } from '@/components/ThemeToggle';
 import { PopoutButton } from '@/components/PopoutButton';
+import { UserMenu } from '@/components/UserMenu';
 import { useToast } from '@/hooks/use-toast';
 
 export interface GameEvent {
@@ -184,6 +186,7 @@ const Index = () => {
             <PopoutButton />
           </div>
           <div className="flex items-center space-x-2 sm:space-x-4">
+            <UserMenu isDarkMode={isDarkMode} />
             <ThemeToggle isDarkMode={isDarkMode} onToggle={setIsDarkMode} />
             <ExportPanel events={events} homeStats={homeStats} awayStats={awayStats} />
           </div>
