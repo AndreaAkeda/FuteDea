@@ -198,35 +198,9 @@ const Index = () => {
           isDarkMode={isDarkMode}
         />
 
-        {/* Main Game Area - Stack vertically on mobile, Grid on larger screens */}
+        {/* Main Game Area - Always three columns side by side */}
         <div className="mb-4 sm:mb-6">
-          {/* Mobile - Vertical Stack */}
-          <div className="block sm:hidden space-y-3">
-            <TeamPanel
-              team="home"
-              teamName="Casa"
-              stats={homeStats}
-              onAddEvent={addEvent}
-              isDarkMode={isDarkMode}
-            />
-            
-            <StatsPanel
-              homeStats={homeStats}
-              awayStats={awayStats}
-              isDarkMode={isDarkMode}
-            />
-            
-            <TeamPanel
-              team="away"
-              teamName="Visitante"
-              stats={awayStats}
-              onAddEvent={addEvent}
-              isDarkMode={isDarkMode}
-            />
-          </div>
-
-          {/* Tablet and Desktop Grid */}
-          <div className="hidden sm:grid sm:grid-cols-2 lg:grid-cols-3 gap-2 sm:gap-4 lg:gap-6">
+          <div className="grid grid-cols-3 gap-1 sm:gap-4 lg:gap-6">
             {/* Home Team */}
             <TeamPanel
               team="home"
@@ -236,14 +210,12 @@ const Index = () => {
               isDarkMode={isDarkMode}
             />
 
-            {/* Stats Panel - Hidden on tablet, visible on large screens */}
-            <div className="hidden lg:block">
-              <StatsPanel
-                homeStats={homeStats}
-                awayStats={awayStats}
-                isDarkMode={isDarkMode}
-              />
-            </div>
+            {/* Stats Panel */}
+            <StatsPanel
+              homeStats={homeStats}
+              awayStats={awayStats}
+              isDarkMode={isDarkMode}
+            />
 
             {/* Away Team */}
             <TeamPanel
@@ -251,15 +223,6 @@ const Index = () => {
               teamName="Visitante"
               stats={awayStats}
               onAddEvent={addEvent}
-              isDarkMode={isDarkMode}
-            />
-          </div>
-
-          {/* Stats Panel for tablet only */}
-          <div className="hidden sm:block lg:hidden mt-4 sm:mt-6">
-            <StatsPanel
-              homeStats={homeStats}
-              awayStats={awayStats}
               isDarkMode={isDarkMode}
             />
           </div>
