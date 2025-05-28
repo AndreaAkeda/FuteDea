@@ -174,9 +174,14 @@ const Index = () => {
         {/* Header */}
         <div className="flex justify-between items-center mb-6">
           <div className="flex items-center space-x-4">
-            <h1 className={`text-3xl font-bold ${isDarkMode ? 'text-white' : 'text-gray-900'}`}>
-              ⚽ Football Analytics Pro
-            </h1>
+            <div className="flex flex-col">
+              <h1 className={`text-3xl font-bold ${isDarkMode ? 'text-white' : 'text-gray-900'}`}>
+                ⚽ FutDea
+              </h1>
+              <p className={`text-sm ${isDarkMode ? 'text-gray-400' : 'text-gray-600'}`}>
+                Criado por Andrea com apoio do Trader Draco
+              </p>
+            </div>
             <PopoutButton />
           </div>
           <div className="flex items-center space-x-4">
