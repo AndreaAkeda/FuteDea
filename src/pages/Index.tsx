@@ -170,21 +170,21 @@ const Index = () => {
 
   return (
     <div className={`min-h-screen transition-colors duration-300 ${isDarkMode ? 'bg-gray-900' : 'bg-gradient-to-br from-green-50 to-blue-50'}`}>
-      <div className="container mx-auto p-4 max-w-7xl">
+      <div className="container mx-auto p-2 sm:p-4 max-w-7xl">
         {/* Header */}
-        <div className="flex justify-between items-center mb-6">
+        <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-4 sm:mb-6 gap-3">
           <div className="flex items-center space-x-4">
             <div className="flex flex-col">
-              <h1 className={`text-3xl font-bold ${isDarkMode ? 'text-white' : 'text-gray-900'}`}>
+              <h1 className={`text-2xl sm:text-3xl font-bold ${isDarkMode ? 'text-white' : 'text-gray-900'}`}>
                 ⚽ FutDea
               </h1>
-              <p className={`text-sm ${isDarkMode ? 'text-gray-400' : 'text-gray-600'}`}>
+              <p className={`text-xs sm:text-sm ${isDarkMode ? 'text-gray-400' : 'text-gray-600'}`}>
                 Criado por Andrea com apoio do Trader Draco
               </p>
             </div>
             <PopoutButton />
           </div>
-          <div className="flex items-center space-x-4">
+          <div className="flex items-center space-x-2 sm:space-x-4">
             <ThemeToggle isDarkMode={isDarkMode} onToggle={setIsDarkMode} />
             <ExportPanel events={events} homeStats={homeStats} awayStats={awayStats} />
           </div>
@@ -199,8 +199,8 @@ const Index = () => {
           isDarkMode={isDarkMode}
         />
 
-        {/* Main Game Area */}
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-6">
+        {/* Main Game Area - Always show teams side by side */}
+        <div className="grid grid-cols-2 lg:grid-cols-3 gap-2 sm:gap-4 lg:gap-6 mb-4 sm:mb-6">
           {/* Home Team */}
           <TeamPanel
             team="home"
@@ -210,12 +210,14 @@ const Index = () => {
             isDarkMode={isDarkMode}
           />
 
-          {/* Stats Panel */}
-          <StatsPanel
-            homeStats={homeStats}
-            awayStats={awayStats}
-            isDarkMode={isDarkMode}
-          />
+          {/* Stats Panel - Hidden on small screens, visible on large */}
+          <div className="hidden lg:block">
+            <StatsPanel
+              homeStats={homeStats}
+              awayStats={awayStats}
+              isDarkMode={isDarkMode}
+            />
+          </div>
 
           {/* Away Team */}
           <TeamPanel
@@ -227,8 +229,17 @@ const Index = () => {
           />
         </div>
 
+        {/* Stats Panel for small screens */}
+        <div className="lg:hidden mb-4 sm:mb-6">
+          <StatsPanel
+            homeStats={homeStats}
+            awayStats={awayStats}
+            isDarkMode={isDarkMode}
+          />
+        </div>
+
         {/* Charts and Alerts */}
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 sm:gap-6">
           <XGChart events={events} isDarkMode={isDarkMode} />
           <TrendAlerts 
             homeStats={homeStats} 
