@@ -8,7 +8,6 @@ import { ExportPanel } from '@/components/ExportPanel';
 import { ThemeToggle } from '@/components/ThemeToggle';
 import { PopoutButton } from '@/components/PopoutButton';
 import { useToast } from '@/hooks/use-toast';
-import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from '@/components/ui/carousel';
 
 export interface GameEvent {
   id: string;
@@ -199,41 +198,31 @@ const Index = () => {
           isDarkMode={isDarkMode}
         />
 
-        {/* Main Game Area - Carousel for mobile, Grid for larger screens */}
+        {/* Main Game Area - Stack vertically on mobile, Grid on larger screens */}
         <div className="mb-4 sm:mb-6">
-          {/* Mobile Carousel */}
-          <div className="block sm:hidden">
-            <Carousel className="w-full">
-              <CarouselContent className="-ml-2 md:-ml-4">
-                <CarouselItem className="pl-2 md:pl-4">
-                  <TeamPanel
-                    team="home"
-                    teamName="Casa"
-                    stats={homeStats}
-                    onAddEvent={addEvent}
-                    isDarkMode={isDarkMode}
-                  />
-                </CarouselItem>
-                <CarouselItem className="pl-2 md:pl-4">
-                  <StatsPanel
-                    homeStats={homeStats}
-                    awayStats={awayStats}
-                    isDarkMode={isDarkMode}
-                  />
-                </CarouselItem>
-                <CarouselItem className="pl-2 md:pl-4">
-                  <TeamPanel
-                    team="away"
-                    teamName="Visitante"
-                    stats={awayStats}
-                    onAddEvent={addEvent}
-                    isDarkMode={isDarkMode}
-                  />
-                </CarouselItem>
-              </CarouselContent>
-              <CarouselPrevious className="left-2" />
-              <CarouselNext className="right-2" />
-            </Carousel>
+          {/* Mobile - Vertical Stack */}
+          <div className="block sm:hidden space-y-3">
+            <TeamPanel
+              team="home"
+              teamName="Casa"
+              stats={homeStats}
+              onAddEvent={addEvent}
+              isDarkMode={isDarkMode}
+            />
+            
+            <StatsPanel
+              homeStats={homeStats}
+              awayStats={awayStats}
+              isDarkMode={isDarkMode}
+            />
+            
+            <TeamPanel
+              team="away"
+              teamName="Visitante"
+              stats={awayStats}
+              onAddEvent={addEvent}
+              isDarkMode={isDarkMode}
+            />
           </div>
 
           {/* Tablet and Desktop Grid */}
