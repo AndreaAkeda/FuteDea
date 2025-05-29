@@ -215,9 +215,14 @@ const Index = () => {
         <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-4 sm:mb-6 gap-3">
           <div className="flex items-center space-x-4">
             <div className="flex flex-col">
-              <h1 className={`text-2xl sm:text-3xl font-bold ${isDarkMode ? 'text-white' : 'text-gray-900'}`}>
-                ⚽ FutDea
-              </h1>
+              <div className="flex items-center space-x-2">
+                <h1 className={`text-2xl sm:text-3xl font-bold ${isDarkMode ? 'text-white' : 'text-gray-900'}`}>
+                  ⚽ FutDea
+                </h1>
+                <span className={`text-sm font-medium px-2 py-1 rounded ${isDarkMode ? 'bg-gray-700 text-gray-300' : 'bg-gray-100 text-gray-600'}`}>
+                  Versão - 1.2
+                </span>
+              </div>
               <p className={`text-xs sm:text-sm ${isDarkMode ? 'text-gray-400' : 'text-gray-600'}`}>
                 Criado por Andrea com apoio do Trader Draco
               </p>
