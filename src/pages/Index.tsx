@@ -1,5 +1,3 @@
-
-
 import { useState, useEffect } from 'react';
 import { GameTimer } from '@/components/GameTimer';
 import { TeamPanel } from '@/components/TeamPanel';
@@ -65,11 +63,33 @@ const Index = () => {
     let interval: NodeJS.Timeout;
     if (isPlaying) {
       interval = setInterval(() => {
-        setGameTime(prev => prev + 1);
+        setGameTime(prev => {
+          const newTime = prev + 1;
+          // Stop at 90 minutes
+          if (newTime >= 90) {
+            setIsPlaying(false);
+            return 90;
+          }
+          return newTime;
+        });
       }, 60000); // 1 minute intervals
     }
     return () => clearInterval(interval);
   }, [isPlaying]);
+
+  // Manual time change handler
+  const handleTimeChange = (newTime: number) => {
+    setGameTime(newTime);
+    // Pause the game when manually changing time
+    if (isPlaying) {
+      setIsPlaying(false);
+    }
+    
+    toast({
+      title: "Tempo alterado",
+      description: `Tempo ajustado para ${newTime}' ${newTime <= 45 ? '(1º Tempo)' : '(2º Tempo)'}`,
+    });
+  };
 
   // Calculate xG based on event type and game context
   const calculateXG = (eventType: string, time: number): number => {
@@ -208,6 +228,7 @@ const Index = () => {
           isPlaying={isPlaying}
           onPlayPause={() => setIsPlaying(!isPlaying)}
           onReset={resetGame}
+          onTimeChange={handleTimeChange}
           isDarkMode={isDarkMode}
         />
 
@@ -257,4 +278,3 @@ const Index = () => {
 };
 
 export default Index;
-
