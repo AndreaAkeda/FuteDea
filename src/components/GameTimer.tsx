@@ -37,7 +37,7 @@ export const GameTimer = ({ gameTime, gameSeconds, isPlaying, onPlayPause, onRes
       {/* Timer Display */}
       <div className="flex items-center justify-center space-x-6 mb-6">
         <div className="text-center">
-          <div className={`text-6xl font-mono font-bold ${isDarkMode ? 'text-green-400' : 'text-green-600'} transition-colors duration-300`}>
+          <div className={`text-4xl font-mono font-bold ${isDarkMode ? 'text-green-400' : 'text-green-600'} transition-colors duration-300`}>
             {formatTime(display, gameSeconds)}
           </div>
           <div className={`text-sm font-medium mt-2 ${isDarkMode ? 'text-gray-400' : 'text-gray-600'}`}>
@@ -49,18 +49,18 @@ export const GameTimer = ({ gameTime, gameSeconds, isPlaying, onPlayPause, onRes
           <Button
             onClick={onPlayPause}
             className={`${isPlaying ? 'bg-orange-500 hover:bg-orange-600' : 'bg-green-500 hover:bg-green-600'} text-white transition-all duration-300 hover:scale-105`}
-            size="lg"
+            size="default"
           >
-            {isPlaying ? <Pause className="h-5 w-5" /> : <Play className="h-5 w-5" />}
+            {isPlaying ? <Pause className="h-4 w-4" /> : <Play className="h-4 w-4" />}
           </Button>
           
           <Button
             onClick={onReset}
             variant="outline"
-            size="lg"
+            size="default"
             className={`${isDarkMode ? 'border-gray-600 hover:bg-gray-700 text-gray-300' : 'border-gray-300 hover:bg-gray-50'} transition-all duration-300 hover:scale-105`}
           >
-            <RotateCcw className="h-5 w-5" />
+            <RotateCcw className="h-4 w-4" />
           </Button>
         </div>
       </div>
