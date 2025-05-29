@@ -1,4 +1,5 @@
 
+
 import { useState, useEffect } from 'react';
 import { GameTimer } from '@/components/GameTimer';
 import { TeamPanel } from '@/components/TeamPanel';
@@ -14,7 +15,7 @@ import { useToast } from '@/hooks/use-toast';
 export interface GameEvent {
   id: string;
   team: 'home' | 'away';
-  type: 'possession' | 'shot_on_target' | 'shot_off_target' | 'dangerous_shot' | 'corner' | 'dangerous_foul';
+  type: 'possession' | 'shot_on_target' | 'shot_off_target' | 'dangerous_shot' | 'corner' | 'dangerous_foul' | 'red_card';
   time: number;
   xgValue: number;
 }
@@ -26,6 +27,7 @@ export interface TeamStats {
   dangerousShots: number;
   corners: number;
   dangerousFouls: number;
+  redCards: number;
   totalXG: number;
 }
 
@@ -43,6 +45,7 @@ const Index = () => {
     dangerousShots: 0,
     corners: 0,
     dangerousFouls: 0,
+    redCards: 0,
     totalXG: 0
   });
 
@@ -53,6 +56,7 @@ const Index = () => {
     dangerousShots: 0,
     corners: 0,
     dangerousFouls: 0,
+    redCards: 0,
     totalXG: 0
   });
 
@@ -75,7 +79,8 @@ const Index = () => {
       'shot_off_target': 0.05,
       'corner': 0.03,
       'dangerous_foul': 0.08,
-      'possession': 0.01
+      'possession': 0.01,
+      'red_card': 0.0
     };
     
     // Time modifier (higher xG in final minutes)
@@ -119,6 +124,9 @@ const Index = () => {
         case 'dangerous_foul':
           updated.dangerousFouls += 1;
           break;
+        case 'red_card':
+          updated.redCards += 1;
+          break;
       }
       
       updated.totalXG += xgValue;
@@ -148,6 +156,7 @@ const Index = () => {
       dangerousShots: 0,
       corners: 0,
       dangerousFouls: 0,
+      redCards: 0,
       totalXG: 0
     });
     setAwayStats({
@@ -157,6 +166,7 @@ const Index = () => {
       dangerousShots: 0,
       corners: 0,
       dangerousFouls: 0,
+      redCards: 0,
       totalXG: 0
     });
   };
@@ -247,3 +257,4 @@ const Index = () => {
 };
 
 export default Index;
+

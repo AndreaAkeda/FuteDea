@@ -1,4 +1,5 @@
 
+
 import { Button } from '@/components/ui/button';
 import { TeamStats } from '@/pages/Index';
 
@@ -12,12 +13,13 @@ interface TeamPanelProps {
 
 export const TeamPanel = ({ team, teamName, stats, onAddEvent, isDarkMode }: TeamPanelProps) => {
   const eventButtons = [
-    { type: 'possession', label: '⚡ Posse', color: 'bg-blue-500 hover:bg-blue-600' },
-    { type: 'dangerous_shot', label: '🎯 Perigoso', color: 'bg-red-500 hover:bg-red-600' },
-    { type: 'shot_on_target', label: '✅ Certeiro', color: 'bg-green-500 hover:bg-green-600' },
-    { type: 'shot_off_target', label: '❌ Fora', color: 'bg-gray-500 hover:bg-gray-600' },
+    { type: 'possession', label: 'Ataque P', color: 'bg-blue-500 hover:bg-blue-600' },
+    { type: 'dangerous_shot', label: 'Finalização P', color: 'bg-red-500 hover:bg-red-600' },
+    { type: 'shot_on_target', label: 'Chute Cert', color: 'bg-green-500 hover:bg-green-600' },
+    { type: 'shot_off_target', label: 'Chute Fora', color: 'bg-gray-500 hover:bg-gray-600' },
     { type: 'corner', label: '🚩 Escanteio', color: 'bg-yellow-500 hover:bg-yellow-600' },
-    { type: 'dangerous_foul', label: '⚠️ Falta', color: 'bg-orange-500 hover:bg-orange-600' }
+    { type: 'dangerous_foul', label: '⚠️ Falta', color: 'bg-orange-500 hover:bg-orange-600' },
+    { type: 'red_card', label: '🟥 Cartão Vermelho', color: 'bg-red-700 hover:bg-red-800' }
   ];
 
   return (
@@ -60,3 +62,4 @@ export const TeamPanel = ({ team, teamName, stats, onAddEvent, isDarkMode }: Tea
     </div>
   );
 };
+
