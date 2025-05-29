@@ -7,8 +7,9 @@ import { TrendAlerts } from '@/components/TrendAlerts';
 import { ExportPanel } from '@/components/ExportPanel';
 import { ThemeToggle } from '@/components/ThemeToggle';
 import { PopoutButton } from '@/components/PopoutButton';
-import { UserMenu } from '@/components/UserMenu';
+import { GameInfoPanel } from '@/components/GameInfoPanel';
 import { useToast } from '@/hooks/use-toast';
+import { Input } from '@/components/ui/input';
 
 export interface GameEvent {
   id: string;
@@ -35,6 +36,8 @@ const Index = () => {
   const [isPlaying, setIsPlaying] = useState(false);
   const [events, setEvents] = useState<GameEvent[]>([]);
   const [isDarkMode, setIsDarkMode] = useState(false);
+  const [homeTeamName, setHomeTeamName] = useState('Casa');
+  const [awayTeamName, setAwayTeamName] = useState('Visitante');
   const { toast } = useToast();
 
   const [homeStats, setHomeStats] = useState<TeamStats>({
@@ -230,9 +233,37 @@ const Index = () => {
             <PopoutButton />
           </div>
           <div className="flex items-center space-x-2 sm:space-x-4">
-            <UserMenu isDarkMode={isDarkMode} />
             <ThemeToggle isDarkMode={isDarkMode} onToggle={setIsDarkMode} />
             <ExportPanel events={events} homeStats={homeStats} awayStats={awayStats} />
+          </div>
+        </div>
+
+        {/* Game Info Panel */}
+        <GameInfoPanel isDarkMode={isDarkMode} />
+
+        {/* Team Names */}
+        <div className="mb-4 grid grid-cols-2 gap-4">
+          <div>
+            <label className={`block text-sm font-medium mb-1 ${isDarkMode ? 'text-white' : 'text-gray-700'}`}>
+              Time da Casa
+            </label>
+            <Input
+              value={homeTeamName}
+              onChange={(e) => setHomeTeamName(e.target.value)}
+              placeholder="Nome do time da casa"
+              className={isDarkMode ? 'bg-gray-800 border-gray-700 text-white' : ''}
+            />
+          </div>
+          <div>
+            <label className={`block text-sm font-medium mb-1 ${isDarkMode ? 'text-white' : 'text-gray-700'}`}>
+              Time Visitante
+            </label>
+            <Input
+              value={awayTeamName}
+              onChange={(e) => setAwayTeamName(e.target.value)}
+              placeholder="Nome do time visitante"
+              className={isDarkMode ? 'bg-gray-800 border-gray-700 text-white' : ''}
+            />
           </div>
         </div>
 
@@ -253,7 +284,7 @@ const Index = () => {
             {/* Home Team */}
             <TeamPanel
               team="home"
-              teamName="Casa"
+              teamName={homeTeamName}
               stats={homeStats}
               onAddEvent={addEvent}
               isDarkMode={isDarkMode}
@@ -269,7 +300,7 @@ const Index = () => {
             {/* Away Team */}
             <TeamPanel
               team="away"
-              teamName="Visitante"
+              teamName={awayTeamName}
               stats={awayStats}
               onAddEvent={addEvent}
               isDarkMode={isDarkMode}

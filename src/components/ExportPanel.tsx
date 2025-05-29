@@ -1,5 +1,5 @@
 
-import { Download, FileText } from 'lucide-react';
+import { Download } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { GameEvent, TeamStats } from '@/pages/Index';
 import { useToast } from '@/hooks/use-toast';
@@ -40,45 +40,15 @@ export const ExportPanel = ({ events, homeStats, awayStats }: ExportPanelProps) 
     });
   };
 
-  const exportToPDF = () => {
-    // Simplified PDF export - would typically use a library like jsPDF
-    const reportData = {
-      date: new Date().toLocaleDateString('pt-BR'),
-      homeStats,
-      awayStats,
-      events: events.length,
-      totalXG: (homeStats.totalXG + awayStats.totalXG).toFixed(2)
-    };
-
-    console.log('PDF Export Data:', reportData);
-    
-    toast({
-      title: "Funcionalidade em desenvolvimento",
-      description: "Export PDF será implementado em breve. Dados salvos no console.",
-    });
-  };
-
   return (
-    <div className="flex space-x-2">
-      <Button
-        onClick={exportToCSV}
-        variant="outline"
-        size="sm"
-        className="transition-all duration-300 hover:scale-105"
-      >
-        <Download className="h-4 w-4 mr-2" />
-        CSV
-      </Button>
-      
-      <Button
-        onClick={exportToPDF}
-        variant="outline"
-        size="sm"
-        className="transition-all duration-300 hover:scale-105"
-      >
-        <FileText className="h-4 w-4 mr-2" />
-        PDF
-      </Button>
-    </div>
+    <Button
+      onClick={exportToCSV}
+      variant="outline"
+      size="sm"
+      className="transition-all duration-300 hover:scale-105"
+    >
+      <Download className="h-4 w-4 mr-2" />
+      Exportar CSV
+    </Button>
   );
 };
