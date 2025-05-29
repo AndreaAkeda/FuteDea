@@ -31,6 +31,7 @@ export interface TeamStats {
 
 const Index = () => {
   const [gameTime, setGameTime] = useState(0);
+  const [gameSeconds, setGameSeconds] = useState(0);
   const [isPlaying, setIsPlaying] = useState(false);
   const [events, setEvents] = useState<GameEvent[]>([]);
   const [isDarkMode, setIsDarkMode] = useState(false);
@@ -63,16 +64,22 @@ const Index = () => {
     let interval: NodeJS.Timeout;
     if (isPlaying) {
       interval = setInterval(() => {
-        setGameTime(prev => {
-          const newTime = prev + 1;
-          // Stop at 90 minutes
-          if (newTime >= 90) {
-            setIsPlaying(false);
-            return 90;
+        setGameSeconds(prev => {
+          if (prev >= 59) {
+            setGameTime(prevTime => {
+              const newTime = prevTime + 1;
+              // Stop at 90 minutes
+              if (newTime >= 90) {
+                setIsPlaying(false);
+                return 90;
+              }
+              return newTime;
+            });
+            return 0;
           }
-          return newTime;
+          return prev + 1;
         });
-      }, 60000); // 1 minute intervals
+      }, 1000); // 1 second intervals
     }
     return () => clearInterval(interval);
   }, [isPlaying]);
@@ -80,6 +87,7 @@ const Index = () => {
   // Manual time change handler
   const handleTimeChange = (newTime: number) => {
     setGameTime(newTime);
+    setGameSeconds(0);
     // Pause the game when manually changing time
     if (isPlaying) {
       setIsPlaying(false);
@@ -87,7 +95,7 @@ const Index = () => {
     
     toast({
       title: "Tempo alterado",
-      description: `Tempo ajustado para ${newTime}' ${newTime <= 45 ? '(1º Tempo)' : '(2º Tempo)'}`,
+      description: `Tempo ajustado para ${newTime}:00 ${newTime <= 45 ? '(1º Tempo)' : '(2º Tempo)'}`,
     });
   };
 
@@ -161,12 +169,13 @@ const Index = () => {
 
     toast({
       title: "Evento registrado",
-      description: `${eventType.replace('_', ' ')} - ${team.toUpperCase()} - ${gameTime}'`,
+      description: `${eventType.replace('_', ' ')} - ${team.toUpperCase()} - ${gameTime}:${gameSeconds.toString().padStart(2, '0')}`,
     });
   };
 
   const resetGame = () => {
     setGameTime(0);
+    setGameSeconds(0);
     setIsPlaying(false);
     setEvents([]);
     setHomeStats({
@@ -225,6 +234,7 @@ const Index = () => {
         {/* Game Timer */}
         <GameTimer 
           gameTime={gameTime}
+          gameSeconds={gameSeconds}
           isPlaying={isPlaying}
           onPlayPause={() => setIsPlaying(!isPlaying)}
           onReset={resetGame}

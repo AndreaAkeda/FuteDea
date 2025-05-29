@@ -5,6 +5,7 @@ import { Slider } from '@/components/ui/slider';
 
 interface GameTimerProps {
   gameTime: number;
+  gameSeconds: number;
   isPlaying: boolean;
   onPlayPause: () => void;
   onReset: () => void;
@@ -12,9 +13,9 @@ interface GameTimerProps {
   isDarkMode: boolean;
 }
 
-export const GameTimer = ({ gameTime, isPlaying, onPlayPause, onReset, onTimeChange, isDarkMode }: GameTimerProps) => {
-  const formatTime = (minutes: number) => {
-    return `${minutes}'`;
+export const GameTimer = ({ gameTime, gameSeconds, isPlaying, onPlayPause, onReset, onTimeChange, isDarkMode }: GameTimerProps) => {
+  const formatTime = (minutes: number, seconds: number) => {
+    return `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
   };
 
   const handleTimeChange = (value: number[]) => {
@@ -37,7 +38,7 @@ export const GameTimer = ({ gameTime, isPlaying, onPlayPause, onReset, onTimeCha
       <div className="flex items-center justify-center space-x-6 mb-6">
         <div className="text-center">
           <div className={`text-6xl font-mono font-bold ${isDarkMode ? 'text-green-400' : 'text-green-600'} transition-colors duration-300`}>
-            {formatTime(display)}
+            {formatTime(display, gameSeconds)}
           </div>
           <div className={`text-sm font-medium mt-2 ${isDarkMode ? 'text-gray-400' : 'text-gray-600'}`}>
             {period}
